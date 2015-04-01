@@ -17,14 +17,17 @@
 */
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <!-- Package Manager -->
-    <java-symbol type="array" name="config_disabledComponents" />
-    <java-symbol type="array" name="config_forceEnabledComponents" />
+    <!-- Automatic brightness enhancements -->
+    <java-symbol type="integer" name="config_autoBrightnessBrighteningLightFastDebounce"/>
 
     <!-- Button Brightness -->
     <java-symbol type="integer" name="config_buttonBrightnessSettingMinimum" />
     <java-symbol type="integer" name="config_buttonBrightnessSettingMaximum" />
     <java-symbol type="integer" name="config_buttonBrightnessSettingDefault" /> 
+    
+    <!-- Package Manager -->
+    <java-symbol type="array" name="config_disabledComponents" />
+    <java-symbol type="array" name="config_forceEnabledComponents" />
 
     <!-- sRGB mode -->
     <java-symbol type="string" name="config_srgb_path" />
