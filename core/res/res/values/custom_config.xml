@@ -26,6 +26,9 @@
     <!-- sRGB sysfs path -->
     <string name="config_srgb_path"></string>
 
+    <!-- If this is true, key chords can be used to take a screen record on the device. -->
+    <bool name="config_enableScreenrecordChord">true</bool>
+
     <!-- Control the behavior when the user long presses or double taps one of the below keys.
             0 - Nothing
             1 - Menu key
