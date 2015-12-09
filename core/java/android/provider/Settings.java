@@ -3701,6 +3701,12 @@ public final class Settings {
          */
         public static final String KEY_HOME_DOUBLE_TAP_ACTION = "key_home_double_tap_action";
 
+        /**
+         * Whether to display screen record in the power menu
+         *
+         * @hide
+         */
+        public static final String POWERMENU_SCREENRECORD = "powermenu_screenrecord";
 
         /**
          * Action to perform when the menu key is long-pressed.
