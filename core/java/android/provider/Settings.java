@@ -3765,6 +3765,13 @@ public final class Settings {
         public static final String KEY_APP_SWITCH_LONG_PRESS_ACTION = "key_app_switch_long_press_action";
 
         /**
+         * Whether to display the torch option in the power menu
+         *
+         * @hide
+         */
+        public static final String POWERMENU_TORCH = "powermenu_torch";
+
+        /**
          * Action to perform when the app switch key is double-tapped.
          * (Default can be configured via config_doubleTapOnHardwareAppSwitchBehavior)
          * (See KEY_HOME_LONG_PRESS_ACTION for valid values)
