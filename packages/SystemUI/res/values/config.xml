@@ -356,6 +356,4 @@
     <!-- When true,show the AutoBrightness checkbox -->
     <bool name="config_show_auto_brightness">false</bool>
 
-    <!-- When true, show charging animation -->
-    <bool name="config_show_battery_charging_anim">true</bool>
 </resources>
