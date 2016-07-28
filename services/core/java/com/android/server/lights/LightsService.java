@@ -135,6 +135,7 @@ public class LightsService extends SystemService {
                 if (DEBUG) Slog.v(TAG, "setLight #" + mId + ": color=#"
                         + Integer.toHexString(color) + ": brightnessMode=" + brightnessMode);
                 mLastColor = mColor;
+                mReset = false;
                 mColor = color;
                 mMode = mode;
                 mOnMS = onMS;
@@ -162,6 +163,7 @@ public class LightsService extends SystemService {
         private int mLastBrightnessMode;
         private int mLastColor;
         private boolean mLocked;
+        private boolean mReset = true;
     }
 
     public LightsService(Context context) {
