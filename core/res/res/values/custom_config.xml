@@ -17,15 +17,6 @@
 */
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <!-- Package Manager -->
-    <java-symbol type="array" name="config_disabledComponents" />
-    <java-symbol type="array" name="config_forceEnabledComponents" />
-
-    <!-- Button Brightness -->
-    <java-symbol type="integer" name="config_buttonBrightnessSettingMinimum" />
-    <java-symbol type="integer" name="config_buttonBrightnessSettingMaximum" />
-    <java-symbol type="integer" name="config_buttonBrightnessSettingDefault" /> 
-
     <!-- Whether notify fingerprint client of successful cancelled authentication -->
-    <java-symbol type="bool" name="config_notifyClientOnFingerprintCancelSuccess" />
+    <bool name="config_notifyClientOnFingerprintCancelSuccess">false</bool>
 </resources>
