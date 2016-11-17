@@ -2870,4 +2870,6 @@
   <!-- Emergency button in power menu -->
   <java-symbol type="bool" name="config_showEmergencyButtonInPowerMenu" />
 
+  <!-- config softap extention feature -->
+  <java-symbol type="bool" name="config_softap_extention" />
 </resources>
