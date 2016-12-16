@@ -3591,7 +3591,7 @@ public final class Settings {
         /**
          * Whether user can enable/disable navigation bar.
          * <p>
-         * Type: int (0 for false, 1 for true)
+     * Type: int (0 for false, 1 for true)
          * @hide
          */
         public static final String NAVIGATION_BAR_ENABLED = "navigation_bar_enabled";
@@ -3613,6 +3613,12 @@ public final class Settings {
          * @hide
          */
         public static final String BUTTON_BRIGHTNESS_ENABLED = "button_brightness_enabled";
+
+        /*
+         * Whether or not volume button music controls should be enabled to seek media tracks
+         * @hide
+         */
+        public static final String VOLBTN_MUSIC_CONTROLS = "volbtn_music_controls";
 
         /**
          * Settings to backup. This is here so that it's in the same place as the settings
