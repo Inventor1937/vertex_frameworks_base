@@ -17,6 +17,20 @@
  */
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <!-- Base battery metter drawable style -->
+    <style name="BatteryMeterViewDrawable">
+        <!-- Gravity used for positioning text within the battery meter -->
+        <item name="android:gravity">center</item>
+        <item name="blendMode">clear</item>
+    </style>
+
+    <!-- Battery meter drawable styles -->
+    <style name="BatteryMeterViewDrawable.Portrait"/>
+    <style name="BatteryMeterViewDrawable.Landscape"/>
+    <style name="BatteryMeterViewDrawable.Circle">
+        <item name="blendMode">overlay</item>
+    </style>
+
     <!-- Screenshot Crop & Share -->
     <style name="CropDialogAnimations">
         <item name="android:windowEnterAnimation">@anim/crop_in</item>
