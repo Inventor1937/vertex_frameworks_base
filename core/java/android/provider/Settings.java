@@ -6411,6 +6411,12 @@ public final class Settings {
         public static final String WEB_ACTION_ENABLED = "web_action_enabled";
 
         /**
+         * Used to store sRGB state
+         * @hide
+         */
+        public static final String SRGB_ENABLED = "srgb_enabled";
+
+        /**
          * This are the settings to be backed up.
          *
          * NOTE: Settings are backed up and restored in the order they appear
