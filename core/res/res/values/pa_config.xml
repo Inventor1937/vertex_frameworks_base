@@ -60,4 +60,7 @@
          For example, a device with Back, Home and AppSwitch keys would set this
          config to 19. -->
     <integer name="config_deviceHardwareKeys">0</integer>
+
+    <!-- Internal default to navigation bar value -->
+    <bool name="config_defaultToNavigationBar">true</bool>
 </resources>
