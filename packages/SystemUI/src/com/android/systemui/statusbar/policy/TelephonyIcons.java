@@ -555,18 +555,10 @@ class TelephonyIcons {
             case TelephonyManager.NETWORK_TYPE_LTE:
             case TelephonyManager.NETWORK_TYPE_LTE_CA:
             case TelephonyManager.NETWORK_TYPE_IWLAN:
-                if (!show4GforLte || MobileSignalController.isCarrierOneSupported()) {
-                    mSelectedDataActivityIndex[slot] = DATA_TYPE_LTE;
+                if (show4GforLte) {
+                    mSelectedDataActivityIndex[slot] = DATA_TYPE_4G;
                     mSelectedDataTypeIcon[slot] = mRes.getIdentifier(
-                            dataTypeArray[type], null, NS);
-                    if ( type == TelephonyManager.NETWORK_TYPE_LTE_CA) {
-                        mSelectedQSDataTypeIcon[slot] = QS_DATA_LTE_PLUS;
-                    } else {
-                        mSelectedQSDataTypeIcon[slot] = QS_DATA_LTE;
-                    }
-                    mSelectedDataTypeDesc[slot] = mDataTypeDescriptionArray[type];
-                    mSelectedSignalStreagthIndex[slot] = SIGNAL_STRENGTH_TYPE_4G;
-                } else {
+                        mDataTypeGenerationArray[1], null, NS);
                     if ( type == TelephonyManager.NETWORK_TYPE_LTE_CA) {
                         mSelectedDataActivityIndex[slot] = DATA_TYPE_4G_PLUS;
                         //Select 4G+ icon.
@@ -580,6 +572,13 @@ class TelephonyIcons {
                         mSelectedQSDataTypeIcon[slot] = QS_DATA_4G;
                     }
                     mSelectedDataTypeDesc[slot] = mDataTypeGenerationDescArray[1];
+                    mSelectedSignalStreagthIndex[slot] = SIGNAL_STRENGTH_TYPE_4G;
+                } else {
+                    mSelectedDataActivityIndex[slot] = DATA_TYPE_LTE;
+                    mSelectedDataTypeIcon[slot] = mRes.getIdentifier(
+                            dataTypeArray[type], null, NS);
+                    mSelectedQSDataTypeIcon[slot] = QS_DATA_LTE;
+                    mSelectedDataTypeDesc[slot] = mDataTypeDescriptionArray[type];
                     mSelectedSignalStreagthIndex[slot] = SIGNAL_STRENGTH_TYPE_4G;
                 }
                 break;
