@@ -3749,6 +3749,12 @@ public final class Settings {
         public static final String KEY_ASSIST_LONG_PRESS_ACTION = "key_assist_long_press_action";
 
         /**
+         * Number of qs columns on landscape orientation
+         * @hide
+         */
+        public static final String QS_LAYOUT_COLUMNS_LANDSCAPE = "qs_layout_columns_landscape";
+
+        /**
          * Action to perform when the assist key is double-tapped.
          * (Default can be configured via config_doubleTapOnHardwareAssistBehavior)
          * (See KEY_HOME_LONG_PRESS_ACTION for valid values)
