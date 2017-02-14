@@ -52,7 +52,6 @@ import java.util.BitSet;
 import java.util.Objects;
 import java.util.List;
 
-
 public class MobileSignalController extends SignalController<
         MobileSignalController.MobileState, MobileSignalController.MobileIconGroup> {
     private final TelephonyManager mPhone;
@@ -396,7 +395,7 @@ public class MobileSignalController extends SignalController<
                     activityIn, activityOut, dataActivityId, mobileActivityId,
                     icons.mStackedDataIcon, icons.mStackedVoiceIcon,
                     dataContentDescription, description, icons.mIsWide,
-                    mSubscriptionInfo.getSubscriptionId());
+                    mSubscriptionInfo.getSubscriptionId(), isMobileIms());
         }
         mCallbackHandler.post(new Runnable() {
             @Override

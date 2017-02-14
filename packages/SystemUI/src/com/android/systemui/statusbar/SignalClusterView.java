@@ -64,6 +64,7 @@ public class SignalClusterView
     private static final String SLOT_WIFI = "wifi";
     private static final String SLOT_ETHERNET = "ethernet";
     private static final String SLOT_VPN = "vpn";
+    private static final String SLOT_VOLTE = "volte";
 
     NetworkControllerImpl mNC;
     SecurityController mSC;
@@ -114,6 +115,7 @@ public class SignalClusterView
     private boolean mBlockEthernet;
     private TelephonyManager mTelephonyManager;
     private boolean mBlockVpn;
+    private boolean mBlockVolte;
 
     public SignalClusterView(Context context) {
         this(context, null);
@@ -151,14 +153,16 @@ public class SignalClusterView
         boolean blockWifi = blockList.contains(SLOT_WIFI);
         boolean blockEthernet = blockList.contains(SLOT_ETHERNET);
         boolean blockVpn = blockList.contains(SLOT_VPN);
+        boolean blockVolte = blockList.contains(SLOT_VOLTE);
 
         if (blockAirplane != mBlockAirplane || blockMobile != mBlockMobile
-                || blockEthernet != mBlockEthernet || blockWifi != mBlockWifi || blockVpn != mBlockVpn) {
+                || blockEthernet != mBlockEthernet || blockWifi != mBlockWifi || blockVpn != mBlockVpn || blockVolte != mBlockVolte) {
             mBlockAirplane = blockAirplane;
             mBlockMobile = blockMobile;
             mBlockEthernet = blockEthernet;
             mBlockWifi = blockWifi;
             mBlockVpn = blockVpn;
+            mBlockVolte = blockVolte;
             // Re-register to get new callbacks.
             mNC.removeSignalCallback(this);
             mNC.addSignalCallback(this);
@@ -295,7 +299,7 @@ public class SignalClusterView
     public void setMobileDataIndicators(IconState statusIcon, IconState qsIcon, int statusType,
             int qsType, boolean activityIn, boolean activityOut, int dataActivityId,
             int mobileActivityId, int stackedDataId, int stackedVoiceId,
-            String typeContentDescription, String description, boolean isWide, int subId) {
+            String typeContentDescription, String description, boolean isWide, int subId, boolean isMobileIms) {
         PhoneState state = getState(subId);
         if (state == null) {
             return;
@@ -305,6 +309,7 @@ public class SignalClusterView
         state.mMobileTypeId = statusType;
         state.mMobileDescription = statusIcon.contentDescription;
         state.mMobileTypeDescription = typeContentDescription;
+        mMobileIms = isMobileIms;
         state.mIsMobileTypeIconWide = statusType != 0 && isWide;
         state.mDataActivityId = dataActivityId;
         state.mMobileActivityId = mobileActivityId;
@@ -330,12 +335,13 @@ public class SignalClusterView
         mMobileIms = isMobileIms;
         this.setMobileDataIndicators(statusIcon, qsIcon, statusType, qsType, activityIn,
                 activityOut, dataActivityId, mobileActivityId, stackedDataId,
-                stackedVoiceId, typeContentDescription, description, isWide, subId);
+                stackedVoiceId, typeContentDescription, description, isWide, subId, mMobileIms);
     }
 
     @Override
     public void setEthernetIndicators(IconState state) {
         mEthernetVisible = state.visible && !mBlockEthernet;
+
         mEthernetIconId = state.icon;
         mEthernetDescription = state.contentDescription;
 
@@ -613,6 +619,11 @@ public class SignalClusterView
         } else {
             mAirplane.setVisibility(View.GONE);
         }
+        if (mMobileIms && !mBlockVolte){
+            mMobileImsImageView.setVisibility(View.VISIBLE);
+        } else {
+            mMobileImsImageView.setVisibility(View.GONE);
+        }
 
         if (mImsOverWifi){
             mImsOverWifiImageView.setVisibility(View.VISIBLE);
@@ -676,6 +687,7 @@ public class SignalClusterView
 
     private void applyIconTint() {
         setTint(mVpn, StatusBarIconController.getTint(mTintArea, mVpn, mIconTint));
+        setTint(mMobileImsImageView, StatusBarIconController.getTint(mTintArea, mMobileImsImageView, mIconTint));
         setTint(mAirplane, StatusBarIconController.getTint(mTintArea, mAirplane, mIconTint));
         setTint(mImsOverWifiImageView, StatusBarIconController.getTint(
             mTintArea, mImsOverWifiImageView, mIconTint));
