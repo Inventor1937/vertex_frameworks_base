@@ -159,4 +159,9 @@
     <string name="qs_menu_item_columns_nine">9</string>
     <string name="qs_menu_item_reset">Reset</string>
     <string name="qs_menu_item_titles">Hide labels</string>
+
+    <!-- Anti Piracy Detection -->
+    <string name="pirate_detection_label">Piracy Protection</string>
+    <string name="pirate_detection_title">Piracy detected</string>
+    <string name="pirate_detection_title_summary">Please uninstall LuckyPatcher as this is pirate software!</string>
 </resources>
