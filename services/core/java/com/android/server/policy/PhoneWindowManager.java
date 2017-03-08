@@ -1520,7 +1520,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             mGlobalActions = new GlobalActions(mContext, mWindowManagerFuncs);
         }
         final boolean keyguardShowing = isKeyguardShowingAndNotOccluded();
-        mGlobalActions.showDialog(keyguardShowing, isKeyguardSecure(mCurrentUserId), isDeviceProvisioned());
+        mGlobalActions.showDialog(keyguardShowing, isDeviceProvisioned());
         if (keyguardShowing) {
             // since it took two seconds of long press to bring this up,
             // poke the wake lock so they have some time to see the dialog.

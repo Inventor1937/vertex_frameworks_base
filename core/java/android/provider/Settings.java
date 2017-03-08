@@ -6547,12 +6547,6 @@ public final class Settings {
                 "managed_profile_contact_remote_search";
 
         /**
-         * Whether to include options in power menu for rebooting into recovery and bootloader
-         * @hide
-         */
-        public static final String ADVANCED_REBOOT = "advanced_reboot";
-
-        /**
          * Whether or not the automatic storage manager is enabled and should run on the device.
          *
          * @hide
