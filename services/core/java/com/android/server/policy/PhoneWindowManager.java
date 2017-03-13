@@ -246,10 +246,11 @@ public class PhoneWindowManager implements WindowManagerPolicy {
     private static final int KEY_ACTION_LAST_APP = 7;
     private static final int KEY_ACTION_SPLIT_SCREEN = 8;
     private static final int KEY_ACTION_KILL_APP = 9;
+    private static final int KEY_ACTION_SCREEN_OFF = 10;
 
     // Special values, used internal only.
-    private static final int KEY_ACTION_HOME = KEY_ACTION_KILL_APP + 1;
-    private static final int KEY_ACTION_BACK = KEY_ACTION_KILL_APP + 2;
+    private static final int KEY_ACTION_HOME = KEY_ACTION_SCREEN_OFF + 1;
+    private static final int KEY_ACTION_BACK = KEY_ACTION_SCREEN_OFF + 2;
 
     // Masks for checking presence of hardware keys.
     // Must match values in core/res/res/values/config.xml
@@ -3720,6 +3721,10 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 break;
             case KEY_ACTION_KILL_APP:
                 mHandler.postDelayed(mBackLongPress, mBackKillTimeout);
+                break;
+            case KEY_ACTION_SCREEN_OFF:
+                PowerManager pm = (PowerManager) mContext.getSystemService(Context.POWER_SERVICE);
+                pm.goToSleep(SystemClock.uptimeMillis());
                 break;
         }
     }
