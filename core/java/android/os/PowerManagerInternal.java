@@ -70,6 +70,7 @@ public abstract class PowerManagerInternal {
     public static final int POWER_HINT_INTERACTION = 2;
     public static final int POWER_HINT_SUSTAINED_PERFORMANCE_MODE = 6;
     public static final int POWER_HINT_LAUNCH = 8;
+    public static final int POWER_HINT_CPU_BOOST = 16;
 
     public static String wakefulnessToString(int wakefulness) {
         switch (wakefulness) {

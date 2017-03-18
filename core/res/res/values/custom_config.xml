@@ -80,4 +80,9 @@
     <!-- kill app long press back -->
     <integer name="config_backKillTimeout">1500</integer>
 
+    <!-- FP Unlock Boost via Power HAL 
+         Duration in microseconds-->
+    <bool name="config_enableFPUnlockBoost">false</bool>
+    <integer name="config_fpUnlockBoostDuration">1200000</integer>
+
 </resources>

@@ -74,4 +74,8 @@
     <java-symbol type="string" name="no_app_killed_message" />
     <java-symbol type="integer" name="config_backKillTimeout" />
 
+    <!-- FP unlock boost via Power HAL -->
+    <java-symbol type="bool" name="config_enableFPUnlockBoost" />
+    <java-symbol type="integer" name="config_fpUnlockBoostDuration" />
+
 </resources>

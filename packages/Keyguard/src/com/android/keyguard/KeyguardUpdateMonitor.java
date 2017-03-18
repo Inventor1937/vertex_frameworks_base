@@ -53,6 +53,7 @@ import android.os.CancellationSignal;
 import android.os.Handler;
 import android.os.IRemoteCallback;
 import android.os.Message;
+import android.os.PowerManagerInternal;
 import android.os.RemoteException;
 import android.os.SystemClock;
 import android.os.Trace;
@@ -76,6 +77,8 @@ import com.android.internal.telephony.IccCardConstants.State;
 import com.android.internal.telephony.PhoneConstants;
 import com.android.internal.telephony.TelephonyIntents;
 import com.android.internal.widget.LockPatternUtils;
+
+import com.android.server.LocalServices;
 
 import java.io.FileDescriptor;
 import java.io.PrintWriter;
@@ -102,8 +105,7 @@ public class KeyguardUpdateMonitor implements TrustManager.TrustListener {
     private static final boolean DEBUG_SIM_STATES = KeyguardConstants.DEBUG_SIM_STATES;
     private static final int LOW_BATTERY_THRESHOLD = 20;
 
-    private static final String ACTION_FACE_UNLOCK_STARTED
-            = "com.android.facelock.FACE_UNLOCK_STARTED";
+    private static final String ACTION_FACE_UNLOCK_STARTED = "com.android.facelock.FACE_UNLOCK_STARTED";
     private static final String ACTION_FACE_UNLOCK_STOPPED
             = "com.android.facelock.FACE_UNLOCK_STOPPED";
 
@@ -212,6 +214,11 @@ public class KeyguardUpdateMonitor implements TrustManager.TrustListener {
     private TrustManager mTrustManager;
     private UserManager mUserManager;
     private int mFingerprintRunningState = FINGERPRINT_STATE_STOPPED;
+
+    private PowerManagerInternal mPowerManagerInternal;
+    private PowerManagerInternal mPowerManagerInternal2;
+    private boolean FPBoostEnabled;
+    private int FPBoostDuration;
 
     private final Handler mHandler = new Handler() {
         @Override
@@ -457,6 +464,25 @@ public class KeyguardUpdateMonitor implements TrustManager.TrustListener {
         // wake-up (if Keyguard is not showing), so we don't need to listen until Keyguard is
         // fully gone.
         mFingerprintAlreadyAuthenticated = isUnlockingWithFingerprintAllowed();
+
+        // Fingerprint Boost
+        if (mPowerManagerInternal == null) {
+            mPowerManagerInternal = LocalServices.getService(PowerManagerInternal.class);
+        }
+        if (mPowerManagerInternal == null) {
+            Log.i(TAG, "Fingerprint Unlock: mPowerManagerInternal is NULL");
+        }
+        if (!FPBoostEnabled) {
+            Log.i(TAG, "Fingerprint Unlock: FPBoostEnabled is false");
+        }
+        if (mScreenOn) {
+            Log.i(TAG, "Fingerprint Unlock: Screen is still ON");
+        }
+        if (mPowerManagerInternal != null && FPBoostEnabled && !mScreenOn) {
+            Log.i(TAG, "Fingerprint Unlock: Boosting CPU");
+            mPowerManagerInternal.powerHint(PowerManagerInternal.POWER_HINT_CPU_BOOST, FPBoostDuration);
+        }
+
         for (int i = 0; i < mCallbacks.size(); i++) {
             KeyguardUpdateMonitorCallback cb = mCallbacks.get(i).get();
             if (cb != null) {
@@ -1152,6 +1178,19 @@ public class KeyguardUpdateMonitor implements TrustManager.TrustListener {
         } catch (RemoteException e) {
             e.rethrowAsRuntimeException();
         }
+
+        // Initialise FP unlock boost
+        //Log.i(TAG, "Initializing mPowerManagerInternal");
+        //mPowerManagerInternal = LocalServices.getService(PowerManagerInternal.class);
+        //if (mPowerManagerInternal != null)
+        //    Log.i(TAG, "1 mPowerManagerInternal has been initialized.");
+        // 
+        //mPowerManagerInternal2 = mContext.getSystemService(PowerManagerInternal.class);
+        //if (mPowerManagerInternal2 != null)
+        //    Log.i(TAG, "2 mPowerManagerInternal2 has been initialized.");
+
+        FPBoostEnabled = mContext.getResources().getBoolean(com.android.internal.R.bool.config_enableFPUnlockBoost);
+        FPBoostDuration = mContext.getResources().getInteger(com.android.internal.R.integer.config_fpUnlockBoostDuration);
 
         IntentFilter strongAuthTimeoutFilter = new IntentFilter();
         strongAuthTimeoutFilter.addAction(ACTION_STRONG_AUTH_TIMEOUT);
