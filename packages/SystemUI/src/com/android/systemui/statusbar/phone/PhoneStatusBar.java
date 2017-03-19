@@ -2374,9 +2374,10 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
                 if (DEBUG_MEDIA) {
                     Log.v(TAG, "DEBUG_MEDIA: Fading out album artwork");
                 }
-                if (mFingerprintUnlockController.getMode()
-                        == FingerprintUnlockController.MODE_WAKE_AND_UNLOCK_PULSING
-                        || hideBecauseOccluded) {
+                int fpMode = mFingerprintUnlockController.getMode();
+                if (fpMode == FingerprintUnlockController.MODE_WAKE_AND_UNLOCK_PULSING
+                        || hideBecauseOccluded
+                        || fpMode == FingerprintUnlockController.MODE_WAKE_AND_UNLOCK) {
 
                     // We are unlocking directly - no animation!
                     mBackdrop.setVisibility(View.GONE);
