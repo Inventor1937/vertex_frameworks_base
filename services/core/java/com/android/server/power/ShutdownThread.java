@@ -173,7 +173,7 @@ public final class ShutdownThread extends Thread {
                         ? com.android.internal.R.string.shutdown_confirm_question
                         : com.android.internal.R.string.shutdown_confirm);
         if (showRebootOption && !mRebootSafeMode) {
-            resourceId = com.android.internal.R.string.reboot_confirm;
+            resourceId = com.android.internal.R.string.shutdown_confirm;
         }
 
         final int titleResourceId = mRebootSafeMode
