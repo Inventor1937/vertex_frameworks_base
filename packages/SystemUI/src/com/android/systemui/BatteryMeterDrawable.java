@@ -309,6 +309,7 @@ public class BatteryMeterDrawable extends Drawable implements
         mHeight = bottom - top;
         mWidth = right - left;
         mWarningTextPaint.setTextSize(mHeight * 0.75f);
+        mWarningTextHeight = -mWarningTextPaint.getFontMetrics().ascent;
     }
 
     protected void updatePercent() {
