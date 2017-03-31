@@ -622,7 +622,7 @@ public class BatteryMeterDrawable extends Drawable implements
             canvas.drawText(pctText, mTextX, mTextY, mTextAndBoltPaint);
         } else if (level <= mCriticalLevel) {
             // Draw the warning text
-            canvas.drawText(mWarningString, mTextX, mTextY, mWarningTextPaint);
+            canvas.drawText(mWarningString, mTextX, mTextY, mTextAndBoltPaint);
         }
     }
 
