@@ -60,6 +60,7 @@
 
 #include "BootAnimation.h"
 
+#include <private/regionalization/Environment.h>
 
 #include "audioplay.h"
 

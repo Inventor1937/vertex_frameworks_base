@@ -103,6 +103,7 @@ public final class KeymasterDefs {
     public static final int KM_TAG_SOTER_UID = KM_UINT | 11007;
     public static final int KM_TAG_SOTER_AUTO_SIGNED_COMMON_KEY_WHEN_GET_PUBLIC_KEY_BLOB = KM_UINT | 11008;
     //add end
+    public static final int KM_TAG_USE_SECURE_PROCESSOR = KM_BOOL | 15000;
 
     // Algorithm values.
     public static final int KM_ALGORITHM_RSA = 1;

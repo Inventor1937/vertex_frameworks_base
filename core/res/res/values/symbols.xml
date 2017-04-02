@@ -301,6 +301,7 @@
   <java-symbol type="bool" name="config_wifi_enable_disconnection_debounce" />
   <java-symbol type="bool" name="config_wifi_revert_country_code_on_cellular_loss" />
   <java-symbol type="bool" name="config_wifi_enable_wifi_firmware_debugging" />
+  <java-symbol type="bool" name="config_wifi_ipreachability_monitor" />
   <java-symbol type="integer" name="config_wifi_logger_ring_buffer_size_limit_kb" />
   <java-symbol type="integer" name="config_wifi_logger_ring_buffer_default_size_limit_kb" />
   <java-symbol type="integer" name="config_wifi_logger_ring_buffer_verbose_size_limit_kb" />
@@ -1925,6 +1926,7 @@
   <java-symbol type="string" name="demo_user_inactivity_timeout_countdown" />
   <java-symbol type="string" name="demo_user_inactivity_timeout_left_button" />
   <java-symbol type="string" name="demo_user_inactivity_timeout_right_button" />
+  <java-symbol type="string" name="config_optionalPackageVerifierName" />
 
   <java-symbol type="layout" name="resolver_list" />
   <java-symbol type="id" name="resolver_list" />
@@ -2703,6 +2705,11 @@
   <java-symbol type="integer" name="animationboost_timeout_param" />
   <java-symbol type="array" name="animationboost_param_value" />
 
+  <!-- cpu boost for pre-fling -->
+  <java-symbol type="bool" name="config_enableCpuBoostForPreFling" />
+  <java-symbol type="integer" name="preflingboost_timeout_param" />
+  <java-symbol type="array" name="preflingboost_param_value" />
+
   <!-- cpu boost for overscroller fling -->
   <java-symbol type="bool" name="config_enableCpuBoostForOverScrollerFling" />
   <java-symbol type="integer" name="flingboost_timeout_param" />
@@ -2729,6 +2736,10 @@
   <!-- cpu boost for PanelView fling -->
   <java-symbol type="bool" name="config_enableCpuBoostForPanelViewFling" />
   <java-symbol type="array" name="panelview_flingboost_param_value" />
+
+  <!-- system boost for MTP file copy -->
+  <java-symbol type="bool" name="config_enableBoostForMtp" />
+  <java-symbol type="array" name="mtpboost_param_value" />
 
   <!-- SIM contact batch operation -->
   <java-symbol type="bool" name="config_sim_phonebook_batch_operation" />
@@ -2869,4 +2880,6 @@
 
   <!-- config softap extention feature -->
   <java-symbol type="bool" name="config_softap_extention" />
+  <java-symbol type="integer" name="config_sms_authorization_timeout_ms" />
+  <java-symbol type="bool" name="config_sms_authorization_enabled" />
 </resources>
