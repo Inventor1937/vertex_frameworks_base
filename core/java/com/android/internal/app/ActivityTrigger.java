@@ -54,6 +54,11 @@ public class ActivityTrigger
         native_at_deinit();
     }
 
+    /** &hide */    
+    public void activityStartProcessTrigger(String process, int pid) {
+        native_at_startProcessActivity(process, pid);
+    }
+
     /** &hide */
     public void activityStartTrigger(Intent intent, ActivityInfo acInfo,
             ApplicationInfo appInfo, boolean IsInFullScreen) {

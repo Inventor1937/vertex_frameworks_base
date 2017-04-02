@@ -2742,11 +2742,7 @@
     <string name="config_demoModeLauncherComponent">com.android.retaildemo/.DemoPlayer</string>
 
     <!-- Flag indicating whether round icons should be parsed from the application manifest. -->
-<<<<<<< HEAD
     <bool name="config_useRoundIcon">true</bool>
-=======
-    <bool name="config_useRoundIcon">false</bool>
->>>>>>> fe812355b38c2609b0a0d8bc896e2a627554bca0
 
     <!-- Flag indicating whether the assist disclosure can be disabled using
          ASSIST_DISCLOSURE_ENABLED. -->
@@ -2796,7 +2792,6 @@
     <!-- An array of packages for which notifications cannot be blocked. -->
     <string-array translatable="false" name="config_nonBlockableNotificationPackages" />
 
-<<<<<<< HEAD
     <!-- The list of components which should be automatically disabled. -->
     <string-array name="config_disabledComponents" translatable="false"></string-array>
 
@@ -2817,11 +2812,9 @@
     <!-- Whether to show emergency button in power menu -->
     <bool name="config_showEmergencyButtonInPowerMenu">false</bool>
 
-=======
     <!-- The duration (in milliseconds) for the outgoing sms authorization request to timeout.-->
     <integer name="config_sms_authorization_timeout_ms">0</integer>
 
     <!-- Enable sms authorization framework-->
     <bool name="config_sms_authorization_enabled">false</bool>
->>>>>>> fe812355b38c2609b0a0d8bc896e2a627554bca0
 </resources>

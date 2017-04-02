@@ -2719,6 +2719,7 @@ public class PackageManagerService extends IPackageManager.Stub {
                         PackageManager.SYSTEM_SHARED_LIBRARY_SHARED);
             } else {
                 mRequiredVerifierPackage = null;
+                mOptionalVerifierPackage = null;
                 mRequiredUninstallerPackage = null;
                 mRequiredInstallerPackage = null;
                 mIntentFilterVerifierComponent = null;
