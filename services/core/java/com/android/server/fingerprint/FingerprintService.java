@@ -119,6 +119,7 @@ public class FingerprintService extends SystemService implements IBinder.DeathRe
     private ClientMonitor mPendingClient;
     private long mCurrentAuthenticatorId;
     private PerformanceStats mPerformanceStats;
+    private boolean mRemoveClientOnCancel;
 
     // Normal fingerprint authentications are tracked by mPerformanceMap.
     private HashMap<Integer, PerformanceStats> mPerformanceMap
@@ -189,6 +190,8 @@ public class FingerprintService extends SystemService implements IBinder.DeathRe
         mContext.registerReceiver(mLockoutReceiver, new IntentFilter(ACTION_LOCKOUT_RESET),
                 RESET_FINGERPRINT_LOCKOUT, null /* handler */);
         mUserManager = UserManager.get(mContext);
+        mRemoveClientOnCancel = context.getResources().getBoolean(
+                com.android.internal.R.bool.config_fingerprintRemoveClientOnCancel);
     }
 
     @Override
@@ -826,6 +829,9 @@ public class FingerprintService extends SystemService implements IBinder.DeathRe
                                 final int stopResult = client.stop(client.getToken() == token);
                                 if (notifyClient && (stopResult == 0)) {
                                     handleError(mHalDeviceId, FingerprintManager.FINGERPRINT_ERROR_CANCELED);
+                                }
+                                if (mRemoveClientOnCancel) {
+                                    removeClient(client);
                                 }
                             } else {
                                 if (DEBUG) Slog.v(TAG, "can't stop client "
