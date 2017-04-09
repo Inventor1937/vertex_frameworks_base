@@ -224,6 +224,7 @@ public class BoostFramework {
         try {
             Object retVal = mIOPStart.invoke(mPerf,pid,pkg_name);
             ret = (int)retVal;
+            Log.d(TAG,"IO prefetching started");
         } catch(Exception e) {
             Log.e(TAG,"Exception " + e);
         }
