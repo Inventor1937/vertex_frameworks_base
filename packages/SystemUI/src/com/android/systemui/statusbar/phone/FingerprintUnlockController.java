@@ -213,7 +213,7 @@ public class FingerprintUnlockController extends KeyguardUpdateMonitorCallback {
                 mStatusBarWindowManager.setStatusBarFocusable(false);
                 mDozeScrimController.abortPulsing();
                 mKeyguardViewMediator.onWakeAndUnlocking();
-                mScrimController.setWakeAndUnlocking();
+                mScrimController.forceHideScrims(true);
                 if (mPhoneStatusBar.getNavigationBarView() != null) {
                     mPhoneStatusBar.getNavigationBarView().setWakeAndUnlocking(true);
                 }
