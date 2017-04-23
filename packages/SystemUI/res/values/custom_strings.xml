@@ -21,26 +21,6 @@
     <string name="keyguard_indication_dash_charging_time">Dash Charging (<xliff:g id="charging_time_left" example="4 hours and 2 minutes">%s</xliff:g> until full)</string>
     <string name="keyguard_plugged_in_dash_charging">Dash Charging</string>
 
-    <!-- Screenshot Crop & Share -->
-    <string name="action_delete_success">Deleted</string>
-    <string name="action_delete_fault">Deleting was unsuccessful</string>
-    <string name="action_save_success">Saved</string>
-    <string name="action_save_fault">Saving was unsuccessful</string>
-    <string name="pref_action_color_title">Action buttons color</string>
-    <string name="pref_action_color_summary">Choose your favorite color for the action buttons</string>
-    <string name="pref_category_main">Main Settings</string>
-    <string name="pref_category_user">User Settings</string>
-    <string name="pref_crop_behavior_title">Crop behavior</string>
-    <string name="pref_crop_behavior_summary">Use the cropped image even if the original one hasn\'t actually been cropped with the crop action</string>
-    <string name="action_ok">OK</string>
-
-    <!-- Screenshot Crop & Share -->
-    <string name="action_delete_success">Deleted</string>
-    <string name="action_delete_fault">Deleting was unsuccessful</string>
-    <string name="action_save_success">Saved</string>
-    <string name="action_save_fault">Saving was unsuccessful</string>
-    <string name="action_edit">Edit</string>
-
     <!-- Wi-Fi hotspot label when enabled -->
     <plurals name="wifi_hotspot_connected_clients_label">
         <item quantity="one">%1$d client</item>
