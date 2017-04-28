@@ -300,7 +300,7 @@ public class SignalClusterView
     public void setMobileDataIndicators(IconState statusIcon, IconState qsIcon, int statusType,
             int qsType, boolean activityIn, boolean activityOut, int dataActivityId,
             int mobileActivityId, int stackedDataId, int stackedVoiceId,
-            String typeContentDescription, String description, boolean isWide, int subId, boolean isMobileIms) {
+            String typeContentDescription, String description, boolean isWide, int subId, boolean roaming, boolean isMobileIms) {
         PhoneState state = getState(subId);
         if (state == null) {
             return;
@@ -316,6 +316,7 @@ public class SignalClusterView
         state.mStackedDataId = stackedDataId;
         state.mStackedVoiceId = stackedVoiceId;
         mMobileIms = isMobileIms;
+        state.mRoaming = roaming;
 
         apply();
     }
@@ -325,7 +326,8 @@ public class SignalClusterView
             int qsType, boolean activityIn, boolean activityOut, int dataActivityId,
             int mobileActivityId, int stackedDataId, int stackedVoiceId,
             String typeContentDescription, String description, boolean isWide, int subId,
-            int dataNetworkTypeId, int embmsIconId, boolean isMobileIms, boolean isImsOverWifi) {
+            int dataNetworkTypeId, int embmsIconId, boolean isMobileIms, boolean isImsOverWifi,
+            boolean roaming) {
         PhoneState state = getState(subId);
         if (state == null) {
             return;
@@ -336,7 +338,7 @@ public class SignalClusterView
         mMobileIms = isMobileIms;
         this.setMobileDataIndicators(statusIcon, qsIcon, statusType, qsType, activityIn,
                 activityOut, dataActivityId, mobileActivityId, stackedDataId,
-                stackedVoiceId, typeContentDescription, description, isWide, subId, isMobileIms);
+                stackedVoiceId, typeContentDescription, description, isWide, subId, roaming, isMobileIms);
     }
 
     @Override
@@ -725,7 +727,7 @@ public class SignalClusterView
         private String mMobileDescription, mMobileTypeDescription;
 
         private ViewGroup mMobileGroup;
-        private ImageView mMobile, mMobileDark, mMobileType, mRoaming, mDataNetworkType,
+        private ImageView mMobile, mMobileDark, mMobileType, mMobileRoaming, mDataNetworkType,
                 mMobileEmbms;
 
         private int mDataActivityId = 0, mMobileActivityId = 0, mDataNetworkTypeId =0,
@@ -734,6 +736,7 @@ public class SignalClusterView
         private int mStackedDataId = 0, mStackedVoiceId = 0;
         private ImageView mDataActivity, mMobileActivity, mStackedData, mStackedVoice;
         private ViewGroup mMobileSingleGroup, mMobileStackedGroup;
+        public boolean mRoaming;
 
         public PhoneState(int subId, Context context) {
             ViewGroup root = (ViewGroup) LayoutInflater.from(context)
@@ -756,7 +759,7 @@ public class SignalClusterView
 
             mMobileSingleGroup = (ViewGroup) root.findViewById(R.id.mobile_signal_single);
             mMobileStackedGroup = (ViewGroup) root.findViewById(R.id.mobile_signal_stacked);
-            mRoaming        = (ImageView) root.findViewById(R.id.mobile_roaming);
+            mMobileRoaming  = (ImageView) root.findViewById(R.id.mobile_roaming);
         }
 
         public boolean apply(boolean isSecondaryIcon) {
@@ -806,21 +809,6 @@ public class SignalClusterView
                     mMobileStackedGroup.setVisibility(View.GONE);
                 }
 
-                if (mContext.getResources().getBoolean(R.bool.show_roaming_and_network_icons)
-                        &&(mTelephonyManager != null
-                        && mTelephonyManager.isNetworkRoaming(mSubId))) {
-                    if (!(mContext.getResources().getBoolean(R.bool.config_data_signal_control))) {
-                         mRoaming.setImageDrawable(getContext().getResources().getDrawable(
-                                R.drawable.stat_sys_data_fully_connected_roam));
-                    } else {
-                       mRoaming.setImageDrawable(null);
-                    }
-
-                    mRoaming.setImageDrawable(getContext().getResources().getDrawable(
-                            R.drawable.stat_sys_data_fully_connected_roam));
-                } else {
-                    mRoaming.setImageDrawable(null);
-                }
                 mMobileGroup.setContentDescription(mMobileTypeDescription
                         + " " + mMobileDescription);
                 mMobileGroup.setVisibility(View.VISIBLE);
@@ -847,6 +835,7 @@ public class SignalClusterView
             mDataNetworkType.setVisibility(mDataNetworkTypeId != 0 ? View.VISIBLE
                     : View.GONE);
             mMobileEmbms.setVisibility(mMobileEmbmsId != 0 ? View.VISIBLE : View.GONE);
+            mMobileRoaming.setVisibility(mRoaming ? View.VISIBLE : View.GONE);
 
             return mMobileVisible;
         }
@@ -908,6 +897,8 @@ public class SignalClusterView
             setTint(mMobileType, StatusBarIconController.getTint(tintArea, mMobileType, tint));
             setTint(mDataNetworkType, StatusBarIconController.getTint(tintArea,
                     mDataNetworkType, tint));
+            setTint(mMobileRoaming, StatusBarIconController.getTint(tintArea, mMobileRoaming,
+                    tint));
         }
     }
 }

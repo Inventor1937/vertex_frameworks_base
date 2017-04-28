@@ -343,7 +343,6 @@ public class MobileSignalController extends SignalController<
             showDataIcon = mCurrentState.dataConnected;
         } else {
             showDataIcon = mCurrentState.dataConnected
-                || mCurrentState.iconGroup == TelephonyIcons.ROAMING
                 || isRoaming() || dataDisabled;
         }
         IconState statusIcon = new IconState(mCurrentState.enabled && !mCurrentState.airplaneMode,
@@ -367,8 +366,7 @@ public class MobileSignalController extends SignalController<
                         && mCurrentState.activityOut;
         if (!mContext.getResources().getBoolean(R.bool.show_roaming_and_network_icons)) {
               showDataIcon &= mCurrentState.isDefault
-                || (mCurrentState.iconGroup == TelephonyIcons.ROAMING || isRoaming())
-                || dataDisabled;
+                || isRoaming() || dataDisabled;
         }
         showDataIcon &= (mStyle == STATUS_BAR_STYLE_ANDROID_DEFAULT
                 || mStyle == STATUS_BAR_STYLE_EXTENDED);
@@ -392,13 +390,13 @@ public class MobileSignalController extends SignalController<
                     icons.mStackedDataIcon, icons.mStackedVoiceIcon,
                     dataContentDescription, description, icons.mIsWide,
                     mSubscriptionInfo.getSubscriptionId(), dataNetworkTypeId,
-                    getEmbmsIconId(), isMobileIms(), isImsRegisteredInWifi());
+                    getEmbmsIconId(), isMobileIms(), isImsRegisteredInWifi(), mCurrentState.roaming);
         } else {
             callback.setMobileDataIndicators(statusIcon, qsIcon, typeIcon, qsTypeIcon,
                     activityIn, activityOut, dataActivityId, mobileActivityId,
                     icons.mStackedDataIcon, icons.mStackedVoiceIcon,
                     dataContentDescription, description, icons.mIsWide,
-                    mSubscriptionInfo.getSubscriptionId(), isMobileIms());
+                    mSubscriptionInfo.getSubscriptionId(), mCurrentState.roaming, isMobileIms());
         }
         mCallbackHandler.post(new Runnable() {
             @Override
@@ -714,13 +712,13 @@ public class MobileSignalController extends SignalController<
         }
         mCurrentState.dataConnected = mCurrentState.connected
                 && mDataState == TelephonyManager.DATA_CONNECTED;
-
+        if (mContext.getResources().getBoolean(R.bool.show_roaming_and_network_icons)) {
+            mCurrentState.roaming = isRoaming();
+        } else {
+            mCurrentState.roaming = false;
+        }
         if (isCarrierNetworkChangeActive()) {
             mCurrentState.iconGroup = TelephonyIcons.CARRIER_NETWORK_CHANGE;
-        } else if (isRoaming()) {
-            if (!mContext.getResources().getBoolean(R.bool.show_roaming_and_network_icons)) {
-                mCurrentState.iconGroup = TelephonyIcons.ROAMING;
-            }
         } else if (isDataDisabled()) {
             mCurrentState.iconGroup = TelephonyIcons.DATA_DISABLED;
         }
@@ -872,7 +870,7 @@ public class MobileSignalController extends SignalController<
                     && !mContext.getResources().getBoolean(
                     R.bool.config_always_hide_roaming_indicator)) {
             dataTypeIcon = TelephonyIcons.ROAMING_ICON;
-            qsDataTypeIcon = TelephonyIcons.QS_DATA_R;
+            qsDataTypeIcon = R.drawable.stat_sys_roaming;
         }
         if (DEBUG) {
             Log.d(mTag, "updateDataNetType, dataTypeIcon=" + getResourceName(dataTypeIcon)
@@ -1210,6 +1208,7 @@ public class MobileSignalController extends SignalController<
         int imsRadioTechnology;
         int dataNetType;
         int dataRegState;
+        boolean roaming;
 
         @Override
         public void copyFrom(State s) {
@@ -1230,6 +1229,7 @@ public class MobileSignalController extends SignalController<
             imsRadioTechnology = state.imsRadioTechnology;
             dataNetType = state.dataNetType;
             dataRegState = state.dataRegState;
+            roaming = state.roaming;
         }
 
         @Override
@@ -1240,6 +1240,7 @@ public class MobileSignalController extends SignalController<
             builder.append("networkName=").append(networkName).append(',');
             builder.append("networkNameData=").append(networkNameData).append(',');
             builder.append("dataConnected=").append(dataConnected).append(',');
+            builder.append("roaming=").append(roaming).append(',');
             builder.append("isDefault=").append(isDefault).append(',');
             builder.append("isEmergency=").append(isEmergency).append(',');
             builder.append("isForbidden= ").append(isForbidden).append(',');
@@ -1270,7 +1271,8 @@ public class MobileSignalController extends SignalController<
                     && ((MobileState) o).isDefault == isDefault
                     && ((MobileState) o).imsRadioTechnology == imsRadioTechnology
                     && ((MobileState) o).dataNetType == dataNetType
-                    && ((MobileState) o).dataRegState == dataRegState;
+                    && ((MobileState) o).dataRegState == dataRegState
+                    && ((MobileState) o).roaming == roaming;
         }
     }
 
